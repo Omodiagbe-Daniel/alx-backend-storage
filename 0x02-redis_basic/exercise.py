@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """defines the class Cache and store"""
 import redis
-from typing import Union
+from typing import Union, Optional
 import uuid
 
 
@@ -17,3 +17,10 @@ class Cache:
         redis_key = str(uuid.uuid4())
         self._redis.set(redis_key, data)
         return redis_key
+
+    def get(self, key: str, fn: Optional[Callable] = None) ->
+            Union[str, bytes, int, float]:
+        if key:
+            self._redis.get(key)
+
+    def get_str(self):
