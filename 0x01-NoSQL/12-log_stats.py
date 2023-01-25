@@ -14,6 +14,6 @@ if __name__ == "__main__":
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for meth in methods:
         res = collection.count_documents({"method": meth})
-        print(f"\tmethod {meth}: {res}")
+        print("\tmethod {}: {}".format(meth, res))
     rest = collection.count_documents({"path": "/status"})
-    print(f"{rest} status check")
+    print("{} status check".format(rest))
