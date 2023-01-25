@@ -12,6 +12,7 @@ if __name__ == "__main__":
     no_doc = (collection.count_documents({}))
     print(f"{no_doc} logs")
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    print("Methods:")
     for meth in methods:
         res = collection.count_documents({"method": meth})
         print("\tmethod {}: {}".format(meth, res))
