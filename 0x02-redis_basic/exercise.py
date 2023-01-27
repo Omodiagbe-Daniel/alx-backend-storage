@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """defines the class Cache and store"""
 import redis
-from typing import Union, Optional
+from typing import Union, Optional, Callable
 import uuid
 
 
@@ -18,9 +18,32 @@ class Cache:
         self._redis.set(redis_key, data)
         return redis_key
 
-    def get(self, key: str, fn: Optional[Callable] = None) ->
-            Union[str, bytes, int, float]:
-        if key:
-            self._redis.get(key)
+    def get(self, key: str, fn: Optional[Callable] = None) -> (
+            Union[str, bytes, int, float]):
+        key1 = self._redis.get(key)
+        if fn:
+            return fn(self._redis.get(key))
+        else:
+            return key1
 
     def get_str(self):
+        """returns a string"""
+        return (str).decode(utf-8)
+
+    def get_int(self):
+        """return an integer"""
+        return (int).decode(utf-8)
+
+
+"""cache = Cache()
+
+TEST_CASES = {
+    b"foo": None,
+    123: int,
+    "bar": lambda d: d.decode("utf-8")
+}
+
+for value, fn in TEST_CASES.items():
+    key = cache.store(value)
+    assert cache.get(key, fn=fn) == value
+"""
